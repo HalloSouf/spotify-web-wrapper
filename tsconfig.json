@@ -1,36 +1,30 @@
 {
-  // Mapped from https://www.typescriptlang.org/tsconfig
-  "extends": "@tsconfig/svelte/tsconfig.json",
-  "compilerOptions": {
-    // Type Checking
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "noImplicitOverride": true,
-    
-    // Modules
-    "baseUrl": "./",
-    "module": "ESNext",
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
+	// Mapped from https://www.typescriptlang.org/tsconfig
+	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		// JavaScript Support
+		"allowJs": true,
+		"checkJs": true,
 
-    // JavaScript Support
-    /**
-     * Typecheck JS in `.svelte` and `.js` files by default.
-     * Disable checkJs if you'd like to use dynamic types in JS.
-     * Note that setting allowJs false does not prevent the use
-     * of JS in `.svelte` files.
-     */
-    "allowJs": true,
-    "checkJs": true,
+		// Interop Constraints
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
 
-    // Interop Constraints
-    "isolatedModules": true,
-    
-    // Language and Environment
-    "lib": ["ESNext", "DOM"],
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-  },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+		// Modules
+		"resolveJsonModule": true,
+
+		// Completeness
+		"skipLibCheck": true,
+
+		// Emit
+		"sourceMap": true,
+
+		// Type Checking
+		"strict": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"noFallthroughCasesInSwitch": false,
+		"noImplicitAny": true
+	}
 }

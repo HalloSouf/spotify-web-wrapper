@@ -9,12 +9,10 @@ build/
 .env.*
 !.env.example
 
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
+# Package manager
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
 
 # Miscellaneous
 .DS_Store
-.vscode/
-.idea/
-yarn-error.log
