@@ -1,0 +1,12 @@
+{
+  // Mapped from https://www.typescriptlang.org/tsconfig
+  "compilerOptions": {
+    // Projects
+    "composite": true,
+
+    // Modules
+    "module": "ESNext",
+    "moduleResolution": "Node"
+  },
+  "include": ["vite.config.ts"]
+}
