@@ -3,11 +3,11 @@
 </svelte:head>
 
 <div class="flex min-h-screen w-full items-center justify-center bg-slate-50">
-	<div class="text-center w-1/2">
-		<h1 class="text-4xl font-bold text-slate-800 tracking-wide">
+	<div class="text-center w-full md:w-1/2 px-8">
+		<h1 class="md:text-4xl text-3xl font-bold text-slate-800 tracking-wide">
 			SpotiWeb is currently under construction
 		</h1>
-		<p class="text-xl mt-5">
+		<p class="md:text-xl mt-5">
 			SpotiWeb is a Spotify wrapper for web with a minimal design and interface. This project is
 			opensource, and you can follow the code progress on my github:
 			<a
