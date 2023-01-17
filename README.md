@@ -1,38 +1,60 @@
-# create-svelte
+# Spotify Web Wrapper
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Simple Spotify web wrapper with a minimal design and interface written with [SvelteKit](https://kit.svelte.dev/).
 
-## Creating a project
+## How is this project created 🛠️
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+This project is created with [SvelteKit](https://kit.svelte.dev/) with [Vite](https://vitejs.dev/) for fast development & building. For setting up SvelteKit with Vite, I used the commands below:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm create svelte@latest .
 ```
 
-## Building
-
-To create a production version of your app:
+After executing this command, your command line will ask some questions.
 
 ```bash
-npm run build
+> √ Which Svelte app template? » Skeleton project
+> √ Add type checking with TypeScript? » Yes, using TypeScript syntax
+> √ Add ESLint for code linting? ... No / *Yes*
+> √ Add Prettier for code formatting? ... No / *Yes*
+> √ Add Playwright for browser testing? ... No / *Yes*
+> √ Add Vitest for unit testing? ... No / *Yes*
 ```
 
-You can preview the production build with `npm run preview`.
+Now you can work on your Svelte application which is set up in your current working directory.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Run Locally 🧱
+
+The first step is cloning the repository on your local machine. This will create a new folder which includes the source code from the repository.
+
+```bash
+git clone https://github.com/HalloSouf/spotify-web-wrapper.git
+```
+
+Navigate through your CLI to the directory which is created by git.
+
+```bash
+cd spotify-web-wrapper
+```
+
+Install the required dependencies listed in the `package.json` file.
+
+```bash
+yarn install
+```
+
+Start your Sveltekit application by running the dev command.
+
+```bash
+yarn run dev -- --open
+```
+
+## Deployment 📦
+
+To deploy your application on a production environment, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+You can preview the production build with `yarn run preview`.
+
+## License 📜
+
+[MIT](https://choosealicense.com/licenses/mit/)
