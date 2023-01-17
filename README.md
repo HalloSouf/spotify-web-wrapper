@@ -55,6 +55,17 @@ To deploy your application on a production environment, you may need to install 
 
 You can preview the production build with `yarn run preview`.
 
+### Deploy with Docker 🐬
+
+I added a Dockerfile for deploying your SvelteKit application with Docker on your production server.
+
+```bash
+docker compose up
+```
+
+> For building the images add the `--build` to the command above
+> The nginx config is not fully optizimed for production
+
 ## License 📜
 
 [MIT](https://choosealicense.com/licenses/mit/)
