@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  spotify-web-wrapper:
+    build: .
+    image: spotify-web-wrapper
+    restart: unless-stopped
+  spotify-web-wrapper-proxy:
+    image: nginx:alpine
+    container_name: spotify-web-wrapper-proxy
+    restart: unless-stopped
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports: 
+      - 8005:8005
+    depends_on:
+      - spotify-web-wrapper
