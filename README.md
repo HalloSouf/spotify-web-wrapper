@@ -63,8 +63,7 @@ I added a Dockerfile for deploying your SvelteKit application with Docker on you
 docker compose up
 ```
 
-> For building the images add the `--build` to the command above
-> The nginx config is not fully optizimed for production
+> For building the images add the `--build` to the command above. The nginx config is not fully optizimed for production.
 
 ## License 📜
 
