@@ -24,7 +24,6 @@
 		"strict": true,
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
-		"noFallthroughCasesInSwitch": false,
-		"noImplicitAny": true
+		"noFallthroughCasesInSwitch": false
 	}
 }
