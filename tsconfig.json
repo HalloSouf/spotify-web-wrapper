@@ -13,6 +13,12 @@
 
 		// Modules
 		"resolveJsonModule": true,
+		"baseUrl": ".",
+		"paths": {
+			"$ctypes/*": ["src/types/*"],
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"]
+		},
 
 		// Completeness
 		"skipLibCheck": true,

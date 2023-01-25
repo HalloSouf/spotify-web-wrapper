@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import type { Load } from '@sveltejs/kit';
 	import 'iconify-icon';
 	import '../css/app.css';
 </script>
