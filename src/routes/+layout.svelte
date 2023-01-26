@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { Load } from '@sveltejs/kit';
-	import 'iconify-icon';
 	import '../css/app.css';
+	import 'iconify-icon';
 </script>
 
 <main class="min-h-screen w-full bg-black">

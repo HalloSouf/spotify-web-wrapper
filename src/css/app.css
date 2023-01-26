@@ -6,4 +6,9 @@
 
 body {
 	font-family: 'Poppins', sans-serif;
+	color: #fff;
+}
+
+.rest-screen {
+	min-height: calc(100vh - theme('height.20'));
 }
