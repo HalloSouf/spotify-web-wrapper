@@ -3,3 +3,8 @@ export interface IConfig {
 		scopes: string[];
 	};
 }
+
+export interface IErrorMessage {
+	title: string;
+	message: string;
+}

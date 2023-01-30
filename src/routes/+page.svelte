@@ -3,6 +3,8 @@
 	import { concurrent } from 'svelte-typewriter';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { toastError } from '$lib/themes/toasts';
+	import { handleError } from '$lib/utils/Utils';
 
 	let loading: boolean = false;
 	let showFirstLandingPart: boolean = false;
@@ -10,6 +12,13 @@
 
 	onMount(() => {
 		loading = true;
+
+		const params = new URLSearchParams(window.location.search);
+		if (params.has('error')) {
+			const error = handleError(params.get('error'));
+			toastError(error.title, error.message);
+		}
+
 		setTimeout(() => {
 			loading = false;
 		}, 500);
