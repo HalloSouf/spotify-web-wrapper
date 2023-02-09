@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&family=Flow+Circular&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -29,6 +29,14 @@ body {
 	color: #fff;
 }
 
+.loading-text {
+	font-family: 'Flow Circular', sans-serif !important;
+}
+
 .rest-screen {
 	min-height: calc(100vh - theme('height.20'));
+}
+
+.link {
+	@apply underline decoration-sky-500 font-semibold underline-offset-2 hover:text-sky-500 transition duration-200;
 }

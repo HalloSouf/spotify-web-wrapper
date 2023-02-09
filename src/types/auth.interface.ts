@@ -1,9 +1,3 @@
-export interface ITokenCollection {
-	accessToken: string;
-	refreshToken: string;
-	expiresAt: number;
-}
-
 export interface IAccessResponse extends IRefreshResponse {
 	refresh_token: string;
 }
@@ -17,9 +11,10 @@ export interface IRefreshResponse {
 
 export interface IAuthSigninResponse {
 	user: IUserProfile;
-	expiresAt: number;
-	accessToken: string;
-	refreshToken: string;
+	tokens: {
+		access: string;
+		refresh: string;
+	};
 }
 
 export interface IUserProfile {
