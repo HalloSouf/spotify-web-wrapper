@@ -1,6 +1,5 @@
-import type { Status } from '$lib/constants/enums';
 import type { IUserProfile } from './auth.interface';
-import type { WebPlaybackErrorEvents } from './utils.interface';
+import type { WebPlaybackErrorEvents } from './spotify.interface';
 
 export interface IAuthStore {
   user: null | IUserProfile;
@@ -13,6 +12,6 @@ export interface ISpotifyStore {
   isActive: boolean;
   isInitializing: boolean;
   isPlaying: boolean;
-  status: Status;
   token: string;
+  timestampPosition: number;
 }

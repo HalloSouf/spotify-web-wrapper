@@ -1,5 +1,6 @@
-import type { ISpotifyPlayerOptions, IWebPlaybackPlayer, IWebPlaybackState, WebPlaybackErrorEvents } from '$ctypes/utils.interface';
+import type { ISpotifyPlayerOptions, IWebPlaybackPlayer, IWebPlaybackState, OAuthCallback, WebPlaybackErrorEvents } from '$ctypes/spotify.interface';
 import EventEmitter from 'events';
+import { SpotifyApi } from './Axios';
 
 declare interface SpotifyPlayer {
   (event: 'player_state_changed', cb: (d: IWebPlaybackState | null) => void): boolean;
@@ -8,7 +9,8 @@ declare interface SpotifyPlayer {
 }
 
 class SpotifyPlayer extends EventEmitter {
-  private player: IWebPlaybackPlayer;
+  public client: IWebPlaybackPlayer;
+  private token: string;
 
   /**
    * @param instance Spotify Playback SDK 
@@ -17,7 +19,11 @@ class SpotifyPlayer extends EventEmitter {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(instance: any, options: ISpotifyPlayerOptions) {
     super();
-    this.player = new instance({ ...options });
+    this.client = new instance({
+      ...options,
+      getOauthToken: (cb: OAuthCallback) => cb(options.token)
+    });
+    this.token = options.token;
     this.patch();
   }
 
@@ -25,22 +31,33 @@ class SpotifyPlayer extends EventEmitter {
    * Patch Spotify player
    */
   private patch(): void {
-    this.player.addListener('ready', ({ device_id }) => this.emit('ready', device_id));
-    this.player.addListener('not_ready', ({ device_id }) => this.emit('not_ready', device_id));
-    this.player.addListener('player_state_changed', (payload) => this.emit('player_state_changed', payload));
-    this.player.addListener('account_error', ({ message }) => this.emit('error', { type: 'account_error', message }));
-    this.player.addListener('authentication_error', ({ message }) => this.emit('error', { type: 'authentication_error', message }));
-    this.player.addListener('initialization_error', ({ message }) => this.emit('error', { type: 'initialization_error', message }));
-    this.player.addListener('playback_error', ({ message }) => this.emit('error', { type: 'playback_error', message }));
+    this.client.addListener('ready', ({ device_id }) => this.emit('ready', device_id));
+    this.client.addListener('not_ready', ({ device_id }) => this.emit('not_ready', device_id));
+    this.client.addListener('player_state_changed', (payload) => this.emit('player_state_changed', payload));
+    this.client.addListener('account_error', ({ message }) => this.emit('error', { type: 'account_error', message }));
+    this.client.addListener('authentication_error', ({ message }) => this.emit('error', { type: 'authentication_error', message }));
+    this.client.addListener('initialization_error', ({ message }) => this.emit('error', { type: 'initialization_error', message }));
+    this.client.addListener('playback_error', ({ message }) => this.emit('error', { type: 'playback_error', message }));
 
-    this.player.connect();
+    this.client.connect();
   }
 
   /**
-   * Disconnect player
+   * Enable playlist shuffle
+   * @param state Shuffle state
    */
-  public disconnect(): void {
-    return this.player.disconnect();
+  public async enableShuffle(state: boolean): Promise<void> {
+    return await SpotifyApi(this.token).put(`/me/player/shuffle?state=${state}`);
+  }
+
+  /**
+   * Select playback device
+   * @param deviceId Device ID
+   */
+  public async selectDevice(deviceId: string): Promise<void> {
+    return await SpotifyApi(this.token).put('/me/player', {
+      device_ids: [deviceId]
+    });
   }
 }
 

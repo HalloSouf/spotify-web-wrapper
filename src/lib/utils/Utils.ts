@@ -1,12 +1,19 @@
-import type { IErrorMessage } from '$ctypes/global.interface';
-import type { UriType } from '$ctypes/utils.interface';
+import type { IToastMessage } from '$ctypes/global.interface';
+import type { UriType } from '$ctypes/spotify.interface';
 import errors from '$lib/constants/errors';
 
-export const handleError = (key: string | undefined | null): IErrorMessage => {
+/**
+ * Handle error
+ * @param key Error key
+ */
+export const handleError = (key: string | undefined | null): IToastMessage => {
 	const error = errors.get(key || '');
 	return error || { title: 'Unknown Error', message: 'An unknown error occurred.' };
 };
 
+/**
+ * Load Spotify SDK from browser
+ */
 export const loadSpotifySDK = (): Promise<void> => {
 	return new Promise<void>((resolve, reject) => {
 		const scriptTag = document.getElementById('spotify-player');
@@ -29,6 +36,10 @@ export const loadSpotifySDK = (): Promise<void> => {
 	});
 };
 
+/**
+ * Destruct Spotify URI
+ * @param uri Spotify URI
+ */
 export const destructUri = (uri: string): { service: 'spotify'; type: UriType; id: string } => {
 	const [service, type, id] = uri.split(':');
 	return { 

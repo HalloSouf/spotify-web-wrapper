@@ -4,7 +4,7 @@ export interface IConfig {
 	};
 }
 
-export interface IErrorMessage {
+export interface IToastMessage {
 	title: string;
-	message: string;
+	message?: string;
 }

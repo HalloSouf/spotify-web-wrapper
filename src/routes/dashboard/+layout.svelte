@@ -6,6 +6,7 @@
 	import authStore from '$lib/stores/auth';
 	import axios, { AxiosError } from 'axios';
 	import { onMount } from 'svelte';
+	import { SpotifyApi } from '$lib/utils/Axios';
 
 	
 	let loading: boolean = true;
@@ -13,10 +14,7 @@
 
 	onMount(async () => {
 		try {
-			const { data } = await axios.get<IUserProfile>('https://api.spotify.com/v1/me', { 
-				headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` } 
-			});
-			
+			const { data } = await SpotifyApi(localStorage.getItem('accessToken') || '').get<IUserProfile>('/me');			
 			authStore.set({ ...authStore, user: data });
 			loading = false;
 		} catch (e: unknown) {

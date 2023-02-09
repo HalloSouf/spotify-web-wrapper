@@ -1,7 +1,5 @@
-export enum Status {
-  Error = 'ERROR',
-  Idle = 'IDLE',
-  Init = 'INIT',
-  Ready = 'READY',
-  Running = 'RUNNING'
+export enum DeviceType {
+  Computer = 'device-laptop',
+  Smartphone = 'device-mobile',
+  Speaker = 'device-speaker'
 }

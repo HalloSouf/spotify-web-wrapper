@@ -16,7 +16,7 @@
 		const params = new URLSearchParams(window.location.search);
 		if (params.has('error')) {
 			const error = handleError(params.get('error'));
-			toastError(error.title, error.message);
+			toastError(error);
 		}
 
 		setTimeout(() => {

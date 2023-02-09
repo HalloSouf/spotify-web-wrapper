@@ -1,10 +1,11 @@
 <script lang="ts">
   export let onPrevious: () => void = () => {};
-  export let onPause: () => void = () => {};
+  export let onTogglePlay: () => void = () => {};
   export let onNext: () => void = () => {};
   export let onShuffle: () => void = () => {};
 
   export let shuffle: boolean = false;
+  export let paused: boolean = true;
 </script>
 
 <div class="flex items-center gap-x-4">
@@ -15,19 +16,19 @@
     on:mousedown={() => onShuffle()}
   />
 	<iconify-icon 
-    icon="mdi:skip-previous-circle-outline" 
+    icon="tabler:player-skip-back" 
     height="33" 
     class="text-neutral-300 cursor-pointer"
     on:mousedown={() => onPrevious()}
   />
 	<iconify-icon 
-    icon="material-symbols:pause-circle-outline" 
+    icon="tabler:player-{paused ? 'play' : 'pause'}" 
     height="44" 
     class="cursor-pointer"
-    on:mousedown={() => onPause()}
+    on:mousedown={() => onTogglePlay()}
   />
 	<iconify-icon 
-    icon="mdi:skip-next-circle-outline" 
+    icon="tabler:player-skip-forward" 
     height="33" 
     class="text-neutral-300 cursor-pointer"
     on:mousedown={() => onNext()}
