@@ -42,9 +42,9 @@ export const loadSpotifySDK = (): Promise<void> => {
  */
 export const destructUri = (uri: string): { service: 'spotify'; type: UriType; id: string } => {
 	const [service, type, id] = uri.split(':');
-	return { 
-		service: service as 'spotify', 
-		type: type as UriType, 
+	return {
+		service: service as 'spotify',
+		type: type as UriType,
 		id
 	};
 };

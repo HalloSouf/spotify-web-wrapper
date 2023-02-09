@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { concurrent } from 'svelte-typewriter';
+	import Typewriter from 'svelte-typewriter';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { toastError } from '$lib/themes/toasts';
@@ -56,14 +56,15 @@
 	{#if showFirstLandingPart}
 		<div class="min-h-screen w-full flex items-center justify-center">
 			<div class="w-1/2 text-center">
-				<h1
-					use:concurrent={{ interval: 80 }}
-					transition:fade
-					on:introend={() => (showSecondLandingPart = true)}
-					class="text-4xl font-bold"
-				>
-					Control your music 🎶
-				</h1>
+				<Typewriter interval={80}>
+					<h1
+						transition:fade
+						on:introend={() => (showSecondLandingPart = true)}
+						class="text-4xl font-bold"
+					>
+						Control your music 🎶
+					</h1>
+				</Typewriter>
 				<p
 					transition:fade={{ delay: 500, duration: 1500 }}
 					class="text-xl font-medium mt-4 text-neutral-300"

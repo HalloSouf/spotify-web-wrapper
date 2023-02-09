@@ -8,13 +8,14 @@
 	import { onMount } from 'svelte';
 	import { SpotifyApi } from '$lib/utils/Axios';
 
-	
 	let loading: boolean = true;
 	let endLoadingAnimation: boolean = false;
 
 	onMount(async () => {
 		try {
-			const { data } = await SpotifyApi(localStorage.getItem('accessToken') || '').get<IUserProfile>('/me');			
+			const { data } = await SpotifyApi(
+				localStorage.getItem('accessToken') || ''
+			).get<IUserProfile>('/me');
 			authStore.set({ ...authStore, user: data });
 			loading = false;
 		} catch (e: unknown) {
@@ -28,7 +29,7 @@
 </script>
 
 {#if loading}
-	<div transition:fade={{ duration: 500 }} on:outroend={() => endLoadingAnimation = true}>
+	<div transition:fade={{ duration: 500 }} on:outroend={() => (endLoadingAnimation = true)}>
 		<Loading />
 	</div>
 {:else if !loading && endLoadingAnimation}

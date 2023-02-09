@@ -4,7 +4,6 @@
 	import axios, { AxiosError } from 'axios';
 	import { onMount } from 'svelte';
 
-
 	let error: string | undefined;
 	let loading: boolean = true;
 	let timer: number = 0;
@@ -25,7 +24,7 @@
 			startTimer(5);
 		} catch (e: unknown) {
 			startTimer(10);
-			
+
 			if (e instanceof AxiosError) {
 				return (error = e.response?.data.message);
 			}

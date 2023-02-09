@@ -1,5 +1,10 @@
 <script lang="ts">
-	import type { ICurrentSong, IDevice, IWebPlaybackState, OAuthCallback } from '$ctypes/spotify.interface';
+	import type {
+		ICurrentSong,
+		IDevice,
+		IWebPlaybackState,
+		OAuthCallback
+	} from '$ctypes/spotify.interface';
 	import AvailableDevice from '$lib/components/available-device.svelte';
 	import Dropdown from '$lib/components/dropdown.svelte';
 	import MediaControls from '$lib/components/media-controls.svelte';
@@ -12,7 +17,6 @@
 	import { destructUri, handleError, loadSpotifySDK } from '$lib/utils/Utils';
 	import { onDestroy, onMount } from 'svelte';
 
-
 	let interval: NodeJS.Timer;
 	let player: SpotifyPlayer;
 	let playbackState: IWebPlaybackState;
@@ -21,22 +25,21 @@
 	let currentSong: ICurrentSong | undefined;
 	let availableMetaData: boolean;
 	let activeDevice: IDevice | undefined;
-	$: currentSong = playbackState?.context.uri ? playbackState.context.metadata.current_item : undefined;
+	$: currentSong = playbackState?.context.uri
+		? playbackState.context.metadata.current_item
+		: undefined;
 	$: availableMetaData = !!playbackState?.context.metadata.uri;
-	$: activeDevice = devices.find(val => val.is_active) || undefined;
+	$: activeDevice = devices.find((val) => val.is_active) || undefined;
 
 	const initPlayer = (): void => {
 		$spotifyStore.isInitializing = true;
 		$spotifyStore.token = localStorage.getItem('accessToken') || '';
 
-		player = new SpotifyPlayer(
-			window.Spotify.Player,
-			{
-				token: $spotifyStore.token,
-				name: `SpotiWeb-${Math.random().toString(36).substring(2, 8)}`,
-				volume: 0.7
-			}
-		);
+		player = new SpotifyPlayer(window.Spotify.Player, {
+			token: $spotifyStore.token,
+			name: `SpotiWeb-${Math.random().toString(36).substring(2, 8)}`,
+			volume: 0.7
+		});
 
 		player.on('ready', (deviceId: string) => {
 			$spotifyStore.deviceId = deviceId;
@@ -50,11 +53,19 @@
 				$spotifyStore = { ...$spotifyStore, isActive: true, timestampPosition: state.position };
 				if (!state.paused) {
 					interval = setInterval(() => {
-						$spotifyStore = { ...$spotifyStore, timestampPosition: $spotifyStore.timestampPosition + 1000 };
+						$spotifyStore = {
+							...$spotifyStore,
+							timestampPosition: $spotifyStore.timestampPosition + 1000
+						};
 					}, 1000);
 				}
 			} else {
-				$spotifyStore = { ...$spotifyStore, isPlaying: false, isActive: false, timestampPosition: 0 };
+				$spotifyStore = {
+					...$spotifyStore,
+					isPlaying: false,
+					isActive: false,
+					timestampPosition: 0
+				};
 			}
 		});
 	};
@@ -62,11 +73,13 @@
 	const enableDisplayDevices = async (state: boolean): Promise<void> => {
 		try {
 			if (state) {
-				const { data } = await SpotifyApi($spotifyStore.token).get<{ devices: IDevice[] }>('/me/player/devices');
+				const { data } = await SpotifyApi($spotifyStore.token).get<{ devices: IDevice[] }>(
+					'/me/player/devices'
+				);
 				devices = [...data.devices];
 			}
 
-			displayDevices = state
+			displayDevices = state;
 		} catch (e: unknown) {
 			const error = handleError('unknown');
 			toastError(error);
@@ -97,8 +110,12 @@
 				<div class="w-2/3">
 					<div>
 						<h1 class="text-3xl font-medium">
-							Currently playing
-							"<a class="font-semibold link" href="https://open.spotify.com/track/{destructUri(currentSong.uri).id}" target="_blank" rel="noreferrer">{currentSong.name}</a>"
+							Currently playing "<a
+								class="font-semibold link"
+								href="https://open.spotify.com/track/{destructUri(currentSong.uri).id}"
+								target="_blank"
+								rel="noreferrer">{currentSong.name}</a
+							>"
 						</h1>
 						<p class="text-neutral-300">
 							By
@@ -117,11 +134,15 @@
 					</div>
 
 					<div class="mt-10">
-						<ProgressBar percentage={Math.floor(($spotifyStore.timestampPosition / (playbackState?.duration || 100)) * 100)} />
+						<ProgressBar
+							percentage={Math.floor(
+								($spotifyStore.timestampPosition / (playbackState?.duration || 100)) * 100
+							)}
+						/>
 					</div>
 
 					<div class="mt-5 flex items-center justify-between">
-						<MediaControls 
+						<MediaControls
 							onShuffle={() => player.enableShuffle(!playbackState.shuffle)}
 							onPrevious={() => player.client.previousTrack()}
 							onNext={() => player.client.nextTrack()}
@@ -132,9 +153,9 @@
 
 						<div>
 							<div class="relative">
-								<iconify-icon 
-									icon="tabler-device-laptop" 
-									height="30" 
+								<iconify-icon
+									icon="tabler-device-laptop"
+									height="30"
 									class="text-neutral-300 cursor-pointer"
 									on:mousedown={() => enableDisplayDevices(!displayDevices)}
 								/>
@@ -156,14 +177,17 @@
 										<div class="mt-5">
 											<h3 class="text-lg">Available devices</h3>
 											<div class="mt-3">
-												{#each devices.filter(val => !val.is_active) as device}
-													<AvailableDevice 
-														device={device} 
+												{#each devices.filter((val) => !val.is_active) as device}
+													<AvailableDevice
+														{device}
 														onSelectDevice={async (deviceId) => {
 															try {
 																await player.selectDevice(deviceId);
 																enableDisplayDevices(!displayDevices);
-																toastSuccess({ title: 'Selected new device', message: `You have selected "${device.name}" as your current play-device.` });
+																toastSuccess({
+																	title: 'Selected new device',
+																	message: `You have selected "${device.name}" as your current play-device.`
+																});
 															} catch {
 																const error = handleError('unknown');
 																toastError(error);
@@ -201,9 +225,9 @@
 
 						<div>
 							<div class="relative">
-								<iconify-icon 
-									icon="tabler-device-laptop" 
-									height="30" 
+								<iconify-icon
+									icon="tabler-device-laptop"
+									height="30"
 									class="text-neutral-300 cursor-pointer"
 									on:mousedown={() => enableDisplayDevices(!displayDevices)}
 								/>
@@ -225,9 +249,9 @@
 										<div class="mt-5">
 											<h3 class="text-lg">Available devices</h3>
 											<div class="mt-3">
-												{#each devices.filter(val => !val.is_active) as device}
-													<AvailableDevice 
-														device={device} 
+												{#each devices.filter((val) => !val.is_active) as device}
+													<AvailableDevice
+														{device}
 														onSelectDevice={async (deviceId) => {
 															try {
 																await SpotifyApi($spotifyStore.token).put('/me/player', {
@@ -235,7 +259,10 @@
 																});
 
 																enableDisplayDevices(!displayDevices);
-																toastSuccess({ title: 'Selected new device', message: `You have selected "${device.name}" as your current play-device.` });
+																toastSuccess({
+																	title: 'Selected new device',
+																	message: `You have selected "${device.name}" as your current play-device.`
+																});
 															} catch {
 																const error = handleError('unknown');
 																toastError(error);
